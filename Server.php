@@ -3,9 +3,9 @@
 	$IP = "127.0.0.1";
 	$PORT = 10086;
 
-	$socket = createSocket();
+	$socket = $this->createSocket();
 
-	runServer($scoket);
+	$this->runServer($scoket);
 
 	public function createSocket(){
 		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
