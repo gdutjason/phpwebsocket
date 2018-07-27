@@ -25,15 +25,15 @@
 <script type="text/javascript">
 	var ws;
 	function connect(){
-		ws = new WebSocket("ws//127.0.0.1");
+		ws = new WebSocket("ws://127.0.0.1:10086");
 		
 		//连接
 		ws.onopen = function(){
-			console.log("连接服务器成功");
+			listData("连接服务器成功");
 		}
 		//收到消息
 		ws.onmessage = function(e){
-			console.log("收到服务器信息:");
+			listData("收到服务器信息:"+e.data);
 		}
 		//发送消息
 		//ws.send();
