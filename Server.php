@@ -3,31 +3,39 @@
 	$IP = "127.0.0.1";
 	$PORT = 10086;
 
-	$socket = $this->createSocket();
-
-	$this->runServer($scoket);
-
-	public function createSocket(){
-		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-		scoket_bind($scoket, $IP, $PORT);
-		return $socket;
-	}
+	$socket = new Socket($IP,$PORT);
+	$socket->runServer();
+	class Socket{
+		public $soc;
 
 
-	public function runServer($socket){
-		socket_listen($scoket);
+		public function __construct($ip, $port){
+			$this->soc = $this->createSocket($ip, $port);
+		}
+		public function createSocket($ip, $port){
+			$s = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+			socket_bind($s, $ip, $port);
+			return $s;
+		}
 
-		while (true) {
-			if(socket_accept($socket)){
-				socket_write($socket, 'hello you are the first to use my server');
 
-				$msg = socket_read($socket, 2048);
-				//打印出消息
-				echo $msg;
+		public function runServer(){
+			socket_listen($this->soc);
+
+			while (true) {
+				if(socket_accept($this->soc)){
+					socket_write($this->soc, 'hello you are the first to use my server');
+
+					$msg = socket_read($this->soc, 2048);
+					//打印出消息
+					echo $msg;
+				}
 			}
 		}
-	}
 
+		}
+
+	
 
 
 ?>

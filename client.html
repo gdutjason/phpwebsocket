@@ -33,7 +33,7 @@
 		}
 		//收到消息
 		ws.onmessage = function(e){
-			listData("收到服务器信息:"+e.data);
+			listData(e.data);
 		}
 		//发送消息
 		//ws.send();
@@ -41,12 +41,9 @@
 	
 	function send(){
 		var msg = document.getElementById('msg').value;
-		console.log('insend');
-		listData(msg);
-
+		ws.send(msg);
 	}
 	function listData(msg){
-		console.log('inlistData');
 		var p = document.createElement('p');
 		p.innerHTML = msg;
 		var list = document.getElementById('list');
