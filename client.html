@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div id="messageBox">
-		<input type="button" value="连接服务器" onclick="connect()">
+		<input type="button" id="connect" value="连接服务器" onclick="connect()">
 		<h1 style="text-align: center">websocket聊天系统</h1>
 		<div id="list" style="width: 500px;border:  1px solid gray; height: 300px;margin: 10px auto; overflow: scroll;">
 		</div>
@@ -29,6 +29,7 @@
 		
 		//连接
 		ws.onopen = function(){
+			document.getElementById("connect").style.display = 'none';
 			listData("连接服务器成功");
 
 		}
@@ -41,8 +42,13 @@
 	}
 	
 	function send(){
-		var msg = document.getElementById('msg').value;
-		ws.send(msg);
+		var msg = document.getElementById('msg');
+		if(msg.value == ''){
+
+		}else{
+			ws.send(msg.value);
+		}
+		msg.value = '';
 	}
 	function listData(msg){
 		var p = document.createElement('p');
