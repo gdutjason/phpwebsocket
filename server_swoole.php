@@ -78,6 +78,11 @@
 	//监听WebSocket连接关闭事件
 	$ws->on('close', function ($ws, $fd) {
 		$nick = $ws->redis->get($fd);
+		$jsonData = $ws->redis->get("nickNames");
+		$nickNames = json_decode($jsonData,true);
+		array_push($nickNames, $nick);
+		$ws->redis->set("nickNames",$json_encode($nickNames));
+
 	    sendToAll("{$nick}退出了了聊天室，当前本聊天室人数为:".count($ws->connections)."\n");
 	    echo "client-{$fd} is closed\n";
 	});
